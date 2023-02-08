@@ -1,31 +1,21 @@
-# Exact Solarized Dark color theme for the color GNU ls utility.
+# Dark color theme for the color GNU ls utility.
 # Designed for dircolors (GNU coreutils) 5.97
 #
 # This simple theme was simultaneously designed for these terminal color schemes:
-# - Solarized dark  (best)
-# - Solarized light
-# - default dark
+# - default dark (best)
 # - default light
-# with a slight optimization for Solarized Dark.
 #
 # How the colors were selected:
-# - Terminal emulators often have an option typically enabled by default that makes
-#   bold a different color.  It is important to leave this option enabled so that
-#   you can access the entire 16-color Solarized palette, and not just 8 colors.
+# - Terminal emulators often have an option that makes bold a different color. For this
+#   color theme, you should disable this option. It's usually off by default in modern
+#   terminal emulators.
 # - We favor universality over a greater number of colors.  So we limit the number
 #   of colors so that this theme will work out of the box in all terminals,
-#   Solarized or not, dark or light.
+#   dark or light.
 # - We choose to have the following category of files:
 #   NORMAL & FILE, DIR, LINK, EXEC and
 #   editable text including source, unimportant text, binary docs & multimedia source
 #   files, viewable multimedia, archived/compressed, and unimportant non-text
-# - For uniqueness, we stay away from the Solarized foreground colors are -- either
-#   base00 (brightyellow) or base0 (brightblue).  However, they can be used if
-#   you know what the bg/fg colors of your terminal are, in order to optimize the display.
-# - 3 different options are provided: universal, solarized dark, and solarized light.
-#   The only difference between the universal scheme and one that's optimized for
-#   dark/light is the color of "unimportant" files, which should blend more with the
-#   background
 # - We note that blue is the hardest color to see on dark bg and yellow is the hardest
 #   color to see on light bg (with blue being particularly bad).  So we choose yellow
 #   for multimedia files which are usually accessed in a GUI folder browser anyway.
@@ -131,32 +121,16 @@ EIGHTBIT 1
 #   00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
 # Text color codes:
 #   30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
+# Bright text color codes:
+#   90=black 91=red 92=green 93=yellow 94=blue 35=magenta 96=cyan 97=white
 # Background color codes:
 #   40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
+# Bright background color codes:
+#   100=black 101=red 102=green 103=yellow 104=blue 105=magenta 106=cyan 107=white
 #
 # NOTES:
 # - See http://www.oreilly.com/catalog/wdnut/excerpt/color_names.html
-# - Color combinations
-#   ANSI Color code       Solarized  Notes                Universal             SolDark              SolLight
-#   ~~~~~~~~~~~~~~~       ~~~~~~~~~  ~~~~~                ~~~~~~~~~             ~~~~~~~              ~~~~~~~~
-#   00    none                                            NORMAL, FILE          <SAME>               <SAME>
-#   30    black           base02
-#   01;30 bright black    base03     bg of SolDark
-#   31    red             red                             docs & mm src         <SAME>               <SAME>
-#   01;31 bright red      orange                          EXEC                  <SAME>               <SAME>
-#   32    green           green                           editable text         <SAME>               <SAME>
-#   01;32 bright green    base01                          unimportant text      <SAME>
-#   33    yellow          yellow     unclear in light bg  multimedia            <SAME>               <SAME>
-#   01;33 bright yellow   base00     fg of SolLight                             unimportant non-text
-#   34    blue            blue       unclear in dark bg   user customized       <SAME>               <SAME>
-#   01;34 bright blue     base0      fg in SolDark                                                   unimportant text
-#   35    magenta         magenta                         LINK                  <SAME>               <SAME>
-#   01;35 bright magenta  violet                          archive/compressed    <SAME>               <SAME>
-#   36    cyan            cyan                            DIR                   <SAME>               <SAME>
-#   01;36 bright cyan     base1                           unimportant non-text                       <SAME>
-#   37    white           base2
-#   01;37 bright white    base3      bg in SolLight
-#   05;37;41                         unclear in Putty dark
+# - See https://en.wikipedia.org/wiki/ANSI_escape_code#SGR
 
 
 ### By file type
@@ -172,12 +146,17 @@ OTHER_WRITABLE 34;40
 # symbolic link
 LINK 35
 
+SETUID 97;41 # file that is setuid (u+s)
+SETGID 30;43 # file that is setgid (g+s)
+STICKY_OTHER_WRITABLE 30;42 # dir that is sticky and other-writable (+t,o+w)
+STICKY 97;44 # dir with the sticky bit set (+t) and not other-writable
+
 # pipe, socket, block device, character device (blue bg)
 FIFO 30;44
-SOCK 35;44
-DOOR 35;44 # Solaris 2.5 and later
-BLK  33;44
-CHR  37;44
+SOCK 95;44
+DOOR 95;44 # Solaris 2.5 and later
+BLK  93;44
+CHR  97;44
 
 
 #############################################################################
@@ -185,9 +164,9 @@ CHR  37;44
 
 # Orphaned symlinks (blinking white on red)
 # Blink may or may not work (works on iTerm dark or light, and Putty dark)
-ORPHAN  05;37;41
+ORPHAN  05;97;41
 # ... and the files that orphaned symlinks point to (blinking white on red)
-MISSING 05;37;41
+MISSING 05;97;41
 
 # files with execute permission
 EXEC 01;31  # Unix
@@ -436,9 +415,9 @@ EXEC 01;31  # Unix
 # Unimportant text files
 # For universal scheme, use brightgreen 01;32
 # For optimal on light bg (but too prominent on dark bg), use white 01;34
-.log 01;32
-*~ 01;32
-*# 01;32
+.log 01;90
+*~ 01;90
+*# 01;90
 #.log 01;34
 #*~ 01;34
 #*# 01;34
@@ -460,22 +439,22 @@ EXEC 01;31  # Unix
 #.swp 01;36
 #.swo 01;36
 #*.v 01;36
-.bak 01;33
-.BAK 01;33
-.old 01;33
-.OLD 01;33
-.org_archive 01;33
-.off 01;33
-.OFF 01;33
-.dist 01;33
-.DIST 01;33
-.orig 01;33
-.ORIG 01;33
-.swp 01;33
-.swo 01;33
-*.v 01;33
+.bak 01;90
+.BAK 01;90
+.old 01;90
+.OLD 01;90
+.org_archive 01;90
+.off 01;90
+.OFF 01;90
+.dist 01;90
+.DIST 01;90
+.orig 01;90
+.ORIG 01;90
+.swp 01;90
+.swo 01;90
+*.v 01;90
 
-# The brightmagenta (Solarized: purple) color is free for you to use for your
+# The brightmagenta color is free for you to use for your
 # custom file type
 .gpg 34
 .gpg 34
